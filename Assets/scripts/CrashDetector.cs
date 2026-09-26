@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class CrashDetector : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+  void OnTriggerEnter2D(Collider2D collision) {
+    
+    int layerIndex=LayerMask.NameToLayer("Floor");
 
-    // Update is called once per frame
-    void Update()
+    if (collision.gameObject.layer == layerIndex)
     {
-        
+      Debug.Log("the player has lost!");
     }
+    
+  }
+
 }
