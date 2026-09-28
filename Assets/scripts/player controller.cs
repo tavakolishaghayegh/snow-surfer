@@ -1,5 +1,7 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UIElements;
 
 public class playercontolloer : MonoBehaviour
@@ -12,7 +14,10 @@ public class playercontolloer : MonoBehaviour
     Rigidbody2D myRigidbody2D;
     SurfaceEffector2D surfaceEffector2D;
     Vector2 moveVector;
-      bool canControlplayer = true;
+     bool canControlplayer = true;
+     float previousRotation;
+     float TotalRotation;
+     int FlipCount;
 
     void Start()
     {
@@ -29,6 +34,7 @@ public class playercontolloer : MonoBehaviour
         {
              RotatePlayer();
              BoostPlayer();
+             CalculateFlips();
             
         }
        
@@ -59,6 +65,18 @@ public class playercontolloer : MonoBehaviour
         {
             surfaceEffector2D.speed=baseSpeed;
         }
+    }
+    void CalculateFlips()
+    {
+        float currentRotation=transform.rotation.eulerAngles.z;
+        TotalRotation +=Mathf.DeltaAngle(previousRotation, currentRotation);
+        if(TotalRotation > 340 || TotalRotation < -340)
+        {
+            FlipCount += 1;
+            TotalRotation = 0 ;
+            print(FlipCount);
+        }
+        previousRotation=currentRotation;
     }
     public void DisableControls()
     {
