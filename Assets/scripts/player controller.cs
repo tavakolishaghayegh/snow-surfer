@@ -1,5 +1,7 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UIElements;
 
 public class playercontolloer : MonoBehaviour
@@ -11,8 +13,12 @@ public class playercontolloer : MonoBehaviour
     InputAction moveAction;
     Rigidbody2D myRigidbody2D;
     SurfaceEffector2D surfaceEffector2D;
+    ScoreManager scoreManager;
     Vector2 moveVector;
-      bool canControlplayer = true;
+     bool canControlplayer = true;
+     float previousRotation;
+     float TotalRotation;
+     
 
     void Start()
     {
@@ -20,6 +26,7 @@ public class playercontolloer : MonoBehaviour
        moveAction=InputSystem.actions.FindAction("Move");
        myRigidbody2D=GetComponent<Rigidbody2D>();
        surfaceEffector2D = FindAnyObjectByType<SurfaceEffector2D>();
+       scoreManager=FindAnyObjectByType<ScoreManager>();
     }
 
     
@@ -29,6 +36,7 @@ public class playercontolloer : MonoBehaviour
         {
              RotatePlayer();
              BoostPlayer();
+             CalculateFlips();
             
         }
        
@@ -59,6 +67,18 @@ public class playercontolloer : MonoBehaviour
         {
             surfaceEffector2D.speed=baseSpeed;
         }
+    }
+    void CalculateFlips()
+    {
+        float currentRotation=transform.rotation.eulerAngles.z;
+        TotalRotation +=Mathf.DeltaAngle(previousRotation, currentRotation);
+        if(TotalRotation > 340 || TotalRotation < -340)
+        {
+            
+            TotalRotation = 0 ;
+            scoreManager.AddScore(100);
+        }
+        previousRotation=currentRotation;
     }
     public void DisableControls()
     {
