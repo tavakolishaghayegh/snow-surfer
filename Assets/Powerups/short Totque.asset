@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 471aaa0b604434612bb3d19b951c6a2c, type: 3}
   m_Name: short Totque
   m_EditorClassIdentifier: Assembly-CSharp::PowerupSO
-  powerupType: 
-  valiueChange: 0
-  time: 0
+  powerupType: torque
+  valiueChange: 10
+  time: 2
