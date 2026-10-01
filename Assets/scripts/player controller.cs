@@ -101,6 +101,21 @@ public class playercontolloer : MonoBehaviour
         
     }
     
+    public void DeaActivatePowerup(PowerupSO powerup)
+    {
+        if(powerup.GetPowerupType()== "speed")
+        {
+            baseSpeed-= powerup.GetValueChange();
+            BoostSpeed-= powerup.GetValueChange();
+
+        }
+        else if (powerup.GetPowerupType()== "torque")
+        {
+            torqueAmount-= powerup.GetValueChange();
+            
+        }
+        
+    }
 
 
     
