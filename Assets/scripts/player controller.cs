@@ -10,11 +10,12 @@ public class playercontolloer : MonoBehaviour
     [SerializeField] float baseSpeed =15f;
     [SerializeField] float BoostSpeed=20f;
     [SerializeField] ParticleSystem powerupParticles;
+    [SerializeField] ScoreManager scoreManager;
 
     InputAction moveAction;
     Rigidbody2D myRigidbody2D;
     SurfaceEffector2D surfaceEffector2D;
-    ScoreManager scoreManager;
+    
     Vector2 moveVector;
      bool canControlplayer = true;
      float previousRotation;
@@ -28,7 +29,7 @@ public class playercontolloer : MonoBehaviour
        moveAction=InputSystem.actions.FindAction("Move");
        myRigidbody2D=GetComponent<Rigidbody2D>();
        surfaceEffector2D = FindAnyObjectByType<SurfaceEffector2D>();
-       scoreManager=FindAnyObjectByType<ScoreManager>();
+       
     }
 
     
